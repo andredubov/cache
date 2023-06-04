@@ -20,8 +20,10 @@ const (
 )
 
 func main() {
-	cache := cache.New()
-	cache.Set(NAME, AGE)
+	memcache, expiredAt := cache.NewMemoryCache(), 3 * time.Second
+
+	memcache.Set(NAME, AGE, expiredAt)
+
 	age, err := cache.Get(NAME)
 	if err != nil {
 		fmt.Println(err)
@@ -30,7 +32,8 @@ func main() {
 		fmt.Println(message)
 	}
 
-	cache.Delete(NAME)
+	<-time.After(expiredAt)
+
 	age, err = cache.Get(NAME)
 	if err != nil {
 		fmt.Println(err)

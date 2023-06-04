@@ -42,13 +42,13 @@ func (c *MemoryCache) setTtlTimer() {
 	}
 }
 
-func (c *MemoryCache) Set(key, value interface{}, ttl int64) error {
+func (c *MemoryCache) Set(key, value interface{}, ttl time.Duration) error {
 
 	c.Lock()
 	c.cache[key] = &item{
 		value:     value,
 		createdAt: time.Now().Unix(),
-		ttl:       ttl,
+		ttl:       int64(ttl),
 	}
 	c.Unlock()
 
@@ -58,10 +58,10 @@ func (c *MemoryCache) Set(key, value interface{}, ttl int64) error {
 func (c *MemoryCache) Get(key interface{}) (interface{}, error) {
 
 	c.RLock()
-	item, ex := c.cache[key]
+	item, existed := c.cache[key]
 	c.RUnlock()
 
-	if !ex {
+	if !existed {
 		return nil, ErrItemNotFound
 	}
 
