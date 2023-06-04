@@ -8,24 +8,24 @@ import (
 )
 
 const (
-	NAME = "Alex"
-	AGE  = 27
+	KEY   = "Alex"
+	VALUE = 27
 )
 
 func TestMemoryCache(t *testing.T) {
-	memorycache, expiredAt := cache.NewMemoryCache(), 3*time.Second
+	memorycache, timeout := cache.NewMemoryCache(), 3*time.Second
 
-	memorycache.Set(NAME, AGE, expiredAt)
+	memorycache.Set(KEY, VALUE, timeout)
 
-	age, err := memorycache.Get(NAME)
-	if age == nil || err == cache.ErrItemNotFound {
+	value, err := memorycache.Get(KEY)
+	if value == nil || err == cache.ErrItemNotFound {
 		t.Error(err)
 	}
 
-	<-time.After(expiredAt)
+	<-time.After(timeout)
 
-	age, err = memorycache.Get(NAME)
-	if age == nil && err != cache.ErrItemNotFound {
+	value, err = memorycache.Get(KEY)
+	if value == nil && err != cache.ErrItemNotFound {
 		t.Error("an item shouldn't found.")
 	}
 }

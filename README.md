@@ -15,30 +15,30 @@ import (
 )
 
 const (
-	NAME = "Alex"
-	AGE  = 27
+	KEY = "Alex"
+	VALUE  = 27
 )
 
 func main() {
-	memcache, expiredAt := cache.NewMemoryCache(), 3 * time.Second
+	memcache, timeout := cache.NewMemoryCache(), 3 * time.Second
 
-	memcache.Set(NAME, AGE, expiredAt)
+	memcache.Set(KEY, VALUE, timeout)
 
-	age, err := cache.Get(NAME)
+	value, err := cache.Get(KEY)
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		message := fmt.Sprintf("%s is %d years old.\n", NAME, age)
+		message := fmt.Sprintf("%s is %d years old.\n", KEY, value)
 		fmt.Println(message)
 	}
 
-	<-time.After(expiredAt)
+	<-time.After(timeout)
 
-	age, err = cache.Get(NAME)
+	value, err = cache.Get(KEY)
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		message := fmt.Sprintf("%s is %d years old.\n", NAME, age)
+		message := fmt.Sprintf("%s is %d years old.\n", KEY, value)
 		fmt.Println(message)
 	}
 }
