@@ -1,0 +1,23 @@
+name: check
+on: [push]
+jobs:
+  lint:
+    runs-on: ubuntu:latest
+    steps:
+      - name: Checkout
+        run: actions/checkout@v3
+      - name: Install deps
+        run: go mod download
+      - name: Lint
+        run: go fmt ./...
+  test:
+    needs: [lint]
+    runs-on: ubuntu:latest
+    steps:
+      - name: Checkout
+        run: actions/checkout@v3
+      - name: Install deps
+        run: go mod download
+      - name: Test
+        run: go test ./...
+
