@@ -13,19 +13,19 @@ const (
 )
 
 func TestMemoryCache(t *testing.T) {
-	memorycache, timeout := cache.NewMemoryCache(), 3*time.Second
+	memcache, expiredAt, timeout := cache.NewMemoryCache(), 2*time.Second, 4*time.Second
 
-	memorycache.Set(NAME, AGE, timeout)
+	memcache.Set(NAME, AGE, expiredAt)
 
-	age, err := memorycache.Get(NAME)
+	age, err := memcache.Get(NAME)
 	if age == nil || err == cache.ErrItemNotFound {
 		t.Error(err)
 	}
 
 	<-time.After(timeout)
 
-	age, err = memorycache.Get(NAME)
+	age, err = memcache.Get(NAME)
 	if age == nil && err != cache.ErrItemNotFound {
-		t.Error("an item shouldn't found.")
+		t.Error("an item shouldn't found in the cache")
 	}
 }

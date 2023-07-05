@@ -13,9 +13,9 @@ const (
 )
 
 func main() {
-	memcache, timeout := cache.NewMemoryCache(), 2*time.Second
+	memcache, expiredAt, timeout := cache.NewMemoryCache(), 2*time.Second, 4*time.Second
 
-	memcache.Set(NAME, AGE, timeout)
+	memcache.Set(NAME, AGE, expiredAt)
 
 	age, err := memcache.Get(NAME)
 	if err != nil {
@@ -25,7 +25,7 @@ func main() {
 		fmt.Println(message)
 	}
 
-	<-time.After(4 * time.Second)
+	<-time.After(timeout)
 
 	age, err = memcache.Get(NAME)
 	if err != nil {
