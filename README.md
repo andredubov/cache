@@ -1,7 +1,7 @@
 # Cache
 
 Status of last deployment:<br>
-<img src="hhtps://github.com/andredubov/cache/workflows/check/badge.svg?branch=main"><br>
+<img src="https://github.com/andredubov/cache/workflows/check/badge.svg?branch=main"><br>
 
 Simple in-memory cache
 
