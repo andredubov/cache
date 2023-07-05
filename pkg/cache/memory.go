@@ -32,7 +32,8 @@ func (c *MemoryCache) setTtlTimer() {
 	for {
 		c.Lock()
 		for k, v := range c.cache {
-			if time.Now().Unix()-v.createdAt > v.ttl {
+			curent := time.Now().Unix()
+			if curent-v.createdAt > v.ttl {
 				delete(c.cache, k)
 			}
 		}
@@ -48,7 +49,7 @@ func (c *MemoryCache) Set(key, value interface{}, ttl time.Duration) error {
 	c.cache[key] = &item{
 		value:     value,
 		createdAt: time.Now().Unix(),
-		ttl:       int64(ttl),
+		ttl:       int64(ttl.Seconds()),
 	}
 	c.Unlock()
 
