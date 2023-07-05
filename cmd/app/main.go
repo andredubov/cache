@@ -1,12 +1,3 @@
-# Cache
-
-Simple in-memory cache
-
-See it in action:
-
-## Example
-
-```go
 package main
 
 import (
@@ -44,5 +35,3 @@ func main() {
 		fmt.Println(message)
 	}
 }
-```
-

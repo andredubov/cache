@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/andredubov/cache"
+	"github.com/andredubov/cache/pkg/cache"
 )
 
 const (
@@ -13,16 +13,16 @@ const (
 )
 
 func TestMemoryCache(t *testing.T) {
-	memorycache, expiredAt := cache.NewMemoryCache(), 3*time.Second
+	memorycache, timeout := cache.NewMemoryCache(), 3*time.Second
 
-	memorycache.Set(NAME, AGE, expiredAt)
+	memorycache.Set(NAME, AGE, timeout)
 
 	age, err := memorycache.Get(NAME)
 	if age == nil || err == cache.ErrItemNotFound {
 		t.Error(err)
 	}
 
-	<-time.After(expiredAt)
+	<-time.After(timeout)
 
 	age, err = memorycache.Get(NAME)
 	if age == nil && err != cache.ErrItemNotFound {
