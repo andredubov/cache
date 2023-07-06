@@ -1,6 +1,6 @@
 # Cache
 
-<img src="https://github.com/andredubov/cache/workflows/test/badge.svg?branch=main">
+<img src="https://img.shields.io/github/actions/workflow/status/andredubov/cache/test.yml?label=unit-tests">
 
 Simple in-memory cache
 
