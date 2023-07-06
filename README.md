@@ -1,6 +1,6 @@
 # Cache
 
-<br><img src="https://github.com/andredubov/cache/workflows/check/badge.svg?branch=develop"><br>
+<img src="https://github.com/andredubov/cache/workflows/check/badge.svg?branch=develop">
 
 Simple in-memory cache
 
