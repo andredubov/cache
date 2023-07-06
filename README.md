@@ -1,7 +1,6 @@
 # Cache
 
-Status of last deployment:<br>
-<img src="https://github.com/andredubov/cache/workflows/check/badge.svg?branch=develop"><br>
+<br><img src="https://github.com/andredubov/cache/workflows/check/badge.svg?branch=develop"><br>
 
 Simple in-memory cache
 
